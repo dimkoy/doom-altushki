@@ -112,8 +112,8 @@ const LEVELS = [
       "1.2....~~~~~~~~~~....2.1",
       "1.2..................2.1",
       "1......................1",
-      "1...22.....2.....22....1",
-      "1..........2...........1",
+      "1...22....2......22....1",
+      "1.........2............1",
       "1.3333....2.2.....3333.1",
       "1......................1",
       "1......................1",
@@ -876,52 +876,80 @@ const sfxAoeCharge = () => { blip('sawtooth', 120, 480, 0.55, 0.14); blip('sine'
 const sfxAoe = () => { blip('sawtooth', 180, 40, 0.45, 0.3); blip('square', 90, 45, 0.35, 0.2, 0.02); blip('triangle', 1200, 500, 0.2, 0.08, 0.03); };
 const sfxTeleport = () => { blip('sine', 1500, 300, 0.18, 0.12); blip('triangle', 300, 1800, 0.16, 0.1, 0.08); };
 
-// стон очарованной альтушки: глиссандо вниз с вибрато, у босса — ниже и дольше
+// стоны очарованных альтушек — три варианта, выбирается случайно; у босса ниже и дольше
 function sfxMoan(boss) {
   if (!AC) return;
   try {
     const t = AC.currentTime;
-    const dur = boss ? 0.9 : 0.55;
-    const f0 = (boss ? 300 : 430) + Math.random() * 90;
-    const o = AC.createOscillator(), g = AC.createGain();
-    o.type = 'triangle';
-    o.frequency.setValueAtTime(f0, t);
-    o.frequency.linearRampToValueAtTime(f0 * 1.18, t + dur * 0.25);  // «о-о…»
-    o.frequency.exponentialRampToValueAtTime(f0 * 0.45, t + dur);    // «…ах»
-    const lfo = AC.createOscillator(), lg = AC.createGain();
-    lfo.frequency.value = 5.5; lg.gain.value = f0 * 0.04;
-    lfo.connect(lg); lg.connect(o.frequency);
-    g.gain.setValueAtTime(0.001, t);
-    g.gain.exponentialRampToValueAtTime(boss ? 0.2 : 0.14, t + 0.07);
-    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    o.connect(g); g.connect(AC.destination);
-    o.start(t); lfo.start(t);
-    o.stop(t + dur + 0.05); lfo.stop(t + dur + 0.05);
+    const v = (Math.random() * 3) | 0;
+    const k = boss ? 0.7 : 1;
+    const vol = boss ? 0.2 : 0.14;
+    const moan = (f0, t0, dur, vl, fEnd, vib = 5.5, type = 'triangle') => {
+      const o = AC.createOscillator(), g = AC.createGain();
+      o.type = type;
+      o.frequency.setValueAtTime(f0, t0);
+      o.frequency.exponentialRampToValueAtTime(Math.max(40, fEnd), t0 + dur);
+      const lfo = AC.createOscillator(), lg = AC.createGain();
+      lfo.frequency.value = vib; lg.gain.value = f0 * 0.05;
+      lfo.connect(lg); lg.connect(o.frequency);
+      g.gain.setValueAtTime(0.001, t0);
+      g.gain.exponentialRampToValueAtTime(vl, t0 + 0.06);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      o.connect(g); g.connect(AC.destination);
+      o.start(t0); lfo.start(t0);
+      o.stop(t0 + dur + 0.05); lfo.stop(t0 + dur + 0.05);
+    };
+    if (v === 0) {        // «а-ах…» — долгий спад
+      const f = (430 + Math.random() * 80) * k;
+      moan(f * 1.16, t, boss ? 0.95 : 0.6, vol, f * 0.45);
+    } else if (v === 1) { // «м-м-м…» — низкое мычание с глубоким медленным вибрато
+      const f = (300 + Math.random() * 60) * k;
+      const d = boss ? 1.1 : 0.75;
+      moan(f, t, d, vol * 0.9, f * 0.78, 4.2, 'sine');
+      moan(f * 2, t, d * 0.7, vol * 0.35, f * 1.5, 4.2, 'sine');
+    } else {              // «ох… ох…» — двойной всхлип
+      const f = (480 + Math.random() * 70) * k;
+      moan(f, t, 0.28, vol, f * 0.62);
+      moan(f * 0.92, t + (boss ? 0.4 : 0.3), boss ? 0.6 : 0.38, vol * 0.9, f * 0.4);
+    }
   } catch (e) { /* ок */ }
 }
 
-// ===================== фоновая музыка: тихий эмо-поп из 2007-го =====================
+// ===================== фоновая музыка: тихий готик-рок =====================
 const mNote = m => 440 * Math.pow(2, (m - 69) / 12);
-const M_STEP = 60 / 138 / 4;                     // 16-е ноты при 138 BPM
-const M_BASS = [40, 36, 43, 38];                 // E2 C2 G2 D2
-const M_PADS = [[52, 55, 59], [48, 52, 55], [50, 55, 59], [50, 54, 57]]; // Em C G D
-const M_LEAD = [                                 // эмо-хук, 4 такта по 16 шагов
-  76, 0, 74, 0, 71, 0, 74, 0, 76, 0, 74, 0, 71, 0, 69, 0,
-  72, 0, 71, 0, 69, 0, 67, 0, 69, 0, 71, 0, 67, 0, 0, 0,
-  74, 0, 71, 0, 67, 0, 71, 0, 74, 0, 76, 0, 74, 0, 71, 0,
-  69, 0, 71, 0, 69, 0, 66, 0, 64, 0, 62, 0, 64, 0, 0, 0,
+const M_STEP = 60 / 112 / 4;                     // 16-е ноты при 112 BPM
+const M_BARS = [                                 // Em — C — D — Em (i–VI–VII)
+  { bass: 40, pad: [52, 55, 59] },
+  { bass: 36, pad: [48, 52, 55] },
+  { bass: 38, pad: [50, 54, 57] },
+  { bass: 40, pad: [52, 55, 59] },
 ];
-let musicGain = null, musicTimer = null, mStep = 0, mNextT = 0, noiseBuf = null;
-function mVoice(type, f, t, dur, vol, slideTo) {
-  const o = AC.createOscillator(), g = AC.createGain();
-  o.type = type;
-  o.frequency.setValueAtTime(f, t);
-  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+// разреженная тоскливая мелодия: шаг → [нота, длительность в шагах]
+const M_LEAD = {
+  0: [71, 4], 6: [67, 2], 8: [69, 4], 14: [66, 2],
+  16: [64, 6], 24: [67, 4], 28: [69, 4],
+  32: [66, 4], 38: [69, 2], 40: [74, 6],
+  48: [71, 10], 60: [67, 2], 62: [66, 2],
+};
+let musicGain = null, musicDelay = null, musicTimer = null, mStep = 0, mNextT = 0, noiseBuf = null;
+// пара расстроенных осцилляторов через lowpass — теплее и живее голой волны
+function mTone(t, f, dur, vol, o = {}) {
+  const g = AC.createGain();
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.linearRampToValueAtTime(vol, t + 0.012);
+  g.gain.linearRampToValueAtTime(vol, t + (o.att || 0.02));
   g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  o.connect(g); g.connect(musicGain);
-  o.start(t); o.stop(t + dur + 0.03);
+  const lp = AC.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = o.cut || 1100; lp.Q.value = 0.7;
+  g.connect(lp); lp.connect(musicGain);
+  if (o.echo) lp.connect(musicDelay);
+  for (const det of (o.det ? [-o.det, o.det] : [0])) {
+    const osc = AC.createOscillator();
+    osc.type = o.type || 'sawtooth';
+    osc.frequency.setValueAtTime(f, t);
+    if (o.slide) osc.frequency.exponentialRampToValueAtTime(o.slide, t + dur);
+    osc.detune.value = det;
+    osc.connect(g); osc.start(t); osc.stop(t + dur + 0.05);
+  }
 }
 function mNoise(t, dur, vol, freq) {
   if (!noiseBuf) {
@@ -938,14 +966,18 @@ function mNoise(t, dur, vol, freq) {
   s.start(t); s.stop(t + dur + 0.02);
 }
 function mSchedule(s, t) {
-  const bar = (s >> 4) & 3, st = s & 15;
-  if (st % 2 === 0) mVoice('sawtooth', mNote(M_BASS[bar]), t, M_STEP * 1.7, 0.05);          // бас восьмыми
-  if (st === 0) for (const n of M_PADS[bar]) mVoice('triangle', mNote(n), t, M_STEP * 15, 0.02); // пад-аккорд
-  const n = M_LEAD[s & 63];
-  if (n) mVoice('square', mNote(n), t, M_STEP * 1.9, 0.026);                                 // мелодия
-  if (st === 0 || st === 8) mVoice('sine', 110, t, 0.11, 0.1, 42);                           // бочка
-  if (st === 4 || st === 12) mNoise(t, 0.09, 0.05, 1900);                                    // снейр
-  if (st % 2 === 0) mNoise(t, 0.03, 0.016, 7000);                                            // хэты
+  const bar = (s >> 4) & 3, st = s & 15, B = M_BARS[bar];
+  // качающий бас восьмыми, в конце такта октава вверх
+  if (st % 2 === 0) mTone(t, mNote(B.bass + (st === 14 ? 12 : 0)), M_STEP * 1.8, 0.075, { cut: 380, det: 4 });
+  // мрачный пад, медленно набухает на весь такт
+  if (st === 0) for (const n of B.pad) mTone(t, mNote(n), M_STEP * 16, 0.013, { cut: 650, det: 7, att: 0.6 });
+  // мелодия с эхом
+  const ln = M_LEAD[s & 63];
+  if (ln) mTone(t, mNote(ln[0]), M_STEP * ln[1] * 1.05, 0.045, { cut: 1500, det: 6, echo: true, att: 0.04 });
+  // драм-машина: глухая бочка, снейр с длинным хвостом, тихие хэты
+  if (st === 0 || st === 8) mTone(t, 95, 0.13, 0.14, { type: 'sine', slide: 38, cut: 400 });
+  if (st === 4 || st === 12) { mNoise(t, 0.17, 0.05, 1500); mTone(t, 175, 0.08, 0.03, { type: 'triangle', slide: 110 }); }
+  if (st % 2 === 0) mNoise(t, 0.035, 0.012, 8000);
 }
 function musicTick() {
   if (!AC) return;
@@ -958,8 +990,15 @@ function musicTick() {
 function startMusic() {
   if (!AC || musicTimer) return;
   musicGain = AC.createGain();
-  musicGain.gain.value = 0.9;
+  musicGain.gain.value = 0.85;
   musicGain.connect(AC.destination);
+  // эхо «пунктирной восьмой» с обратной связью — фирменная готическая глубина
+  musicDelay = AC.createDelay(1.0);
+  musicDelay.delayTime.value = M_STEP * 3;
+  const fb = AC.createGain(); fb.gain.value = 0.34;
+  musicDelay.connect(fb); fb.connect(musicDelay);
+  const wet = AC.createGain(); wet.gain.value = 0.5;
+  musicDelay.connect(wet); wet.connect(musicGain);
   mStep = 0; mNextT = AC.currentTime + 0.15;
   musicTimer = setInterval(musicTick, 100);
 }
@@ -975,7 +1014,7 @@ const player = {
   cool: 0, recoil: 0, bob: 0, hurt: 0, shake: 0,
 };
 let laserBeam = null;
-let enemies = [], shots = [], parts = [], items = [], eshots = [];
+let enemies = [], shots = [], parts = [], items = [], eshots = [], aoes = [];
 let level = 1, wave = 0, score = 0, spawnLeft = 0, spawnT = 0;
 let bossSpawned = false;
 let banner = '', bannerSub = '', bannerT = 0;
@@ -1024,7 +1063,7 @@ function loadLevel(n) {
   computeFree();
   player.x = L.start[0]; player.y = L.start[1]; player.ang = -Math.PI / 2;
   player.z = 0; player.vz = 0;
-  enemies = []; shots = []; parts = []; items = []; eshots = [];
+  enemies = []; shots = []; parts = []; items = []; eshots = []; aoes = [];
   wave = 0; spawnLeft = 0; spawnT = 0;
   bossSpawned = false;
   const drops = ['hp', 'hp', 'armor', 'rocket'];
@@ -1103,7 +1142,7 @@ function spawnBoss() {
           v: 0, phase: Math.random() * 6,
           dead: false, deadT: 0, hit: 0,
           atkCd: 1, atkAnim: 0, kissCd: 1.5,
-          aoeCd: 3, aoeT: 0, tpCd: 6,
+          aoeCd: 3, aoeT: 0, tpCd: 6, raoeCd: 4,
           aggro: true,
         });
         banner = `БОСС: ${BOSS_NAMES[level - 1]}`;
@@ -1306,6 +1345,16 @@ function updateEnemy(e, dt) {
         e.atkAnim = 0.6;
         sfxAoeCharge();
       }
+      // и периодически кастует АОЕ-зону прямо по позиции игрока — не стой на месте!
+      if (e.aoeT <= 0) {
+        e.raoeCd -= dt;
+        if (e.raoeCd <= 0 && d > 2.2 && d < 13 && los(e.x, e.y, player.x, player.y)) {
+          e.raoeCd = e.bv === 2 ? 5.5 : 7;
+          aoes.push({ x: player.x, y: player.y, t: 0.85, r: 2.1 });
+          e.atkAnim = 0.5;
+          sfxAoeCharge();
+        }
+      }
     }
     // телепорт Королевы: раз в ~6 секунд переносится поближе к игроку
     if (e.bv === 2 && e.aoeT <= 0) {
@@ -1503,6 +1552,26 @@ function update(dt) {
     }
   }
   eshots = eshots.filter(k => k.life > 0);
+
+  // АОЕ-зоны боссов: кольцо-телеграф из сердечек, затем взрыв
+  for (const a of aoes) {
+    a.t -= dt;
+    if (Math.random() < dt * 50) {
+      const an = Math.random() * TAU;
+      parts.push({
+        x: a.x + Math.cos(an) * a.r, y: a.y + Math.sin(an) * a.r, z: 0.05,
+        vx: 0, vy: 0, vz: 0.9, life: 0.35, max: 0.35, size: 0.07,
+      });
+    }
+    if (a.t <= 0) {
+      ringBurst(a.x, a.y, 30, 0.4);
+      sfxAoe();
+      if (Math.hypot(player.x - a.x, player.y - a.y) < a.r &&
+          damagePlayer(13 + Math.floor(Math.random() * 5)))
+        player.shake = Math.max(player.shake, 0.55);
+    }
+  }
+  aoes = aoes.filter(a => a.t > 0);
 
   // частицы
   for (const p of parts) {

@@ -876,6 +876,94 @@ const sfxAoeCharge = () => { blip('sawtooth', 120, 480, 0.55, 0.14); blip('sine'
 const sfxAoe = () => { blip('sawtooth', 180, 40, 0.45, 0.3); blip('square', 90, 45, 0.35, 0.2, 0.02); blip('triangle', 1200, 500, 0.2, 0.08, 0.03); };
 const sfxTeleport = () => { blip('sine', 1500, 300, 0.18, 0.12); blip('triangle', 300, 1800, 0.16, 0.1, 0.08); };
 
+// стон очарованной альтушки: глиссандо вниз с вибрато, у босса — ниже и дольше
+function sfxMoan(boss) {
+  if (!AC) return;
+  try {
+    const t = AC.currentTime;
+    const dur = boss ? 0.9 : 0.55;
+    const f0 = (boss ? 300 : 430) + Math.random() * 90;
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(f0, t);
+    o.frequency.linearRampToValueAtTime(f0 * 1.18, t + dur * 0.25);  // «о-о…»
+    o.frequency.exponentialRampToValueAtTime(f0 * 0.45, t + dur);    // «…ах»
+    const lfo = AC.createOscillator(), lg = AC.createGain();
+    lfo.frequency.value = 5.5; lg.gain.value = f0 * 0.04;
+    lfo.connect(lg); lg.connect(o.frequency);
+    g.gain.setValueAtTime(0.001, t);
+    g.gain.exponentialRampToValueAtTime(boss ? 0.2 : 0.14, t + 0.07);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(AC.destination);
+    o.start(t); lfo.start(t);
+    o.stop(t + dur + 0.05); lfo.stop(t + dur + 0.05);
+  } catch (e) { /* ок */ }
+}
+
+// ===================== фоновая музыка: тихий эмо-поп из 2007-го =====================
+const mNote = m => 440 * Math.pow(2, (m - 69) / 12);
+const M_STEP = 60 / 138 / 4;                     // 16-е ноты при 138 BPM
+const M_BASS = [40, 36, 43, 38];                 // E2 C2 G2 D2
+const M_PADS = [[52, 55, 59], [48, 52, 55], [50, 55, 59], [50, 54, 57]]; // Em C G D
+const M_LEAD = [                                 // эмо-хук, 4 такта по 16 шагов
+  76, 0, 74, 0, 71, 0, 74, 0, 76, 0, 74, 0, 71, 0, 69, 0,
+  72, 0, 71, 0, 69, 0, 67, 0, 69, 0, 71, 0, 67, 0, 0, 0,
+  74, 0, 71, 0, 67, 0, 71, 0, 74, 0, 76, 0, 74, 0, 71, 0,
+  69, 0, 71, 0, 69, 0, 66, 0, 64, 0, 62, 0, 64, 0, 0, 0,
+];
+let musicGain = null, musicTimer = null, mStep = 0, mNextT = 0, noiseBuf = null;
+function mVoice(type, f, t, dur, vol, slideTo) {
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(f, t);
+  if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + 0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(musicGain);
+  o.start(t); o.stop(t + dur + 0.03);
+}
+function mNoise(t, dur, vol, freq) {
+  if (!noiseBuf) {
+    noiseBuf = AC.createBuffer(1, (AC.sampleRate * 0.25) | 0, AC.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const s = AC.createBufferSource(), g = AC.createGain(), f = AC.createBiquadFilter();
+  s.buffer = noiseBuf;
+  f.type = freq > 4000 ? 'highpass' : 'bandpass'; f.frequency.value = freq;
+  g.gain.setValueAtTime(vol, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  s.connect(f); f.connect(g); g.connect(musicGain);
+  s.start(t); s.stop(t + dur + 0.02);
+}
+function mSchedule(s, t) {
+  const bar = (s >> 4) & 3, st = s & 15;
+  if (st % 2 === 0) mVoice('sawtooth', mNote(M_BASS[bar]), t, M_STEP * 1.7, 0.05);          // бас восьмыми
+  if (st === 0) for (const n of M_PADS[bar]) mVoice('triangle', mNote(n), t, M_STEP * 15, 0.02); // пад-аккорд
+  const n = M_LEAD[s & 63];
+  if (n) mVoice('square', mNote(n), t, M_STEP * 1.9, 0.026);                                 // мелодия
+  if (st === 0 || st === 8) mVoice('sine', 110, t, 0.11, 0.1, 42);                           // бочка
+  if (st === 4 || st === 12) mNoise(t, 0.09, 0.05, 1900);                                    // снейр
+  if (st % 2 === 0) mNoise(t, 0.03, 0.016, 7000);                                            // хэты
+}
+function musicTick() {
+  if (!AC) return;
+  while (mNextT < AC.currentTime + 0.3) {
+    if (state === 'play') { try { mSchedule(mStep, mNextT); } catch (e) { /* ок */ } }
+    mStep = (mStep + 1) & 63;
+    mNextT += M_STEP;
+  }
+}
+function startMusic() {
+  if (!AC || musicTimer) return;
+  musicGain = AC.createGain();
+  musicGain.gain.value = 0.9;
+  musicGain.connect(AC.destination);
+  mStep = 0; mNextT = AC.currentTime + 0.15;
+  musicTimer = setInterval(musicTick, 100);
+}
+
 // ===================== состояние игры =====================
 let state = 'menu';   // menu | play | pause | over | win
 let gt = 0;
@@ -967,6 +1055,7 @@ function beginWave(showBanner) {
 
 function startGame() {
   state = 'play';
+  startMusic();
   gt = 0;
   player.hp = 100; player.armor = 0;
   player.weapon = 0; player.rockets = 0; player.cells = 0;
@@ -1086,7 +1175,7 @@ function explode(x, y) {
   burst(x, y, 8, 0.17);
   player.shake = Math.max(player.shake, 0.5);
   sfxBoom();
-  let killed = false;
+  let killed = false, killedBoss = false;
   for (const e of enemies) {
     if (e.dead) continue;
     const d = Math.hypot(e.x - x, e.y - y);
@@ -1097,11 +1186,12 @@ function explode(x, y) {
         e.dead = true; e.deadT = 0;
         score += e.boss ? 250 + level * 250 : 100;
         killed = true;
+        if (e.boss) killedBoss = true;
         burst(e.x, e.y, e.boss ? 30 : 12, e.boss ? 0.13 : 0.1);
       }
     }
   }
-  if (killed) sfxCharm();
+  if (killed) { sfxCharm(); sfxMoan(killedBoss); }
 }
 
 function fireLaser() {
@@ -1128,6 +1218,7 @@ function fireLaser() {
         e.dead = true; e.deadT = 0;
         score += e.boss ? 250 + level * 250 : 100;
         sfxCharm();
+        sfxMoan(e.boss);
         burst(e.x, e.y, e.boss ? 22 : 10, 0.09);
       } else if (Math.random() < 0.4) burst(px, py, 2, 0.05);
     }
@@ -1384,6 +1475,7 @@ function update(dt) {
           e.dead = true; e.deadT = 0;
           score += e.boss ? 250 + level * 250 : 100;
           sfxCharm();
+          sfxMoan(e.boss);
           if (e.boss) { sfxBoom(); player.shake = Math.max(player.shake, 0.5); }
           burst(e.x, e.y, e.boss ? 30 : 14, e.boss ? 0.13 : 0.1);
         } else {

@@ -813,11 +813,13 @@ function castFloor(camZ, dirX, dirY, plX, plY) {
     for (let sx = 0; sx < W; sx += 2) {
       let r, gg, b;
       if (cellAt(fx, fy) === '~') {
-        const rip = 0.5 + 0.5 * Math.sin(gt * 2.4 + fx * 2.3 + fy * 2.0);
-        const cau = Math.max(0, Math.sin(gt * 1.7 + fx * 4.0 - fy * 3.0)) ** 4;
-        r = (16 + 26 * rip + 60 * cau) * k;
-        gg = (44 + 70 * rip + 80 * cau) * k;
-        b = (92 + 80 * rip + 60 * cau) * k;
+        // вишнёвый блейзер: две волны интерферируют, блики — розоватая пенка
+        const rip = 0.5 + 0.25 * Math.sin(gt * 2.4 + fx * 2.3 + fy * 2.0)
+                        + 0.25 * Math.sin(gt * 1.6 - fx * 1.7 + fy * 2.9);
+        const cau = Math.max(0, Math.sin(gt * 1.9 + fx * 4.0 - fy * 3.0)) ** 4;
+        r = (70 + 85 * rip + 95 * cau) * k;
+        gg = (6 + 18 * rip + 48 * cau) * k;
+        b = (22 + 30 * rip + 55 * cau) * k;
       } else {
         r = 38 * k; gg = 28 * k; b = 40 * k;
       }
@@ -1092,9 +1094,11 @@ function fireLaser() {
   player.cool = LASER_CD;
   player.recoil = 0.5;
   sfxLaser();
-  // дистанция до стены
+  // дистанция до стены или ящика выше уровня глаз
+  const eyeZ = player.z + 0.5;
   let dist = 0;
-  while (dist < 24 && !solidAt(player.x + dx * dist, player.y + dy * dist)) dist += 0.06;
+  while (dist < 24 && !solidAt(player.x + dx * dist, player.y + dy * dist)
+         && floorHAt(player.x + dx * dist, player.y + dy * dist) <= eyeZ) dist += 0.06;
   const ex = player.x + dx * dist, ey = player.y + dy * dist;
   // лазер прошивает всех альтушек на линии
   for (const e of enemies) {
@@ -1103,7 +1107,7 @@ function fireLaser() {
     if (t < 0 || t > dist) continue;
     const px = player.x + dx * t, py = player.y + dy * t;
     if (Math.hypot(e.x - px, e.y - py) < (e.boss ? 0.55 : 0.42)) {
-      e.hp -= 1.8; e.hit = 0.12;
+      e.hp -= 0.9; e.hit = 0.12;
       if (e.hp <= 0) {
         e.dead = true; e.deadT = 0;
         score += e.boss ? 250 + level * 250 : 100;
@@ -1130,7 +1134,7 @@ function shoot() {
     sfxShootMega();
     shots.push({
       mega: true,
-      x: player.x + dx * 0.6, y: player.y + dy * 0.6,
+      x: player.x + dx * 0.6, y: player.y + dy * 0.6, z: player.z + 0.5,
       dx: dx * 9, dy: dy * 9, life: 4, seed: Math.random() * 6,
     });
   } else {
@@ -1138,7 +1142,7 @@ function shoot() {
     player.recoil = 1;
     sfxShoot();
     shots.push({
-      x: player.x + dx * 0.5, y: player.y + dy * 0.5,
+      x: player.x + dx * 0.5, y: player.y + dy * 0.5, z: player.z + 0.5,
       dx: dx * 13, dy: dy * 13, life: 3, seed: Math.random() * 6,
     });
   }
@@ -1192,7 +1196,7 @@ function updateEnemy(e, dt) {
       e.atkAnim = 0.45;
       const a = Math.atan2(ddy, ddx);
       eshots.push({
-        x: e.x + Math.cos(a) * 0.4, y: e.y + Math.sin(a) * 0.4,
+        x: e.x + Math.cos(a) * 0.4, y: e.y + Math.sin(a) * 0.4, z: (e.z || 0) + 0.5,
         dx: Math.cos(a) * 5.5, dy: Math.sin(a) * 5.5, life: 4,
       });
       sfxKiss();
@@ -1307,7 +1311,7 @@ function update(dt) {
   for (const s of shots) {
     s.x += s.dx * dt; s.y += s.dy * dt;
     s.life -= dt;
-    if (solidAt(s.x, s.y)) {
+    if (solidAt(s.x, s.y) || floorHAt(s.x, s.y) > s.z) {
       if (s.mega) explode(s.x - s.dx * dt, s.y - s.dy * dt);
       else burst(s.x - s.dx * dt, s.y - s.dy * dt, 4, 0.06);
       s.life = 0;
@@ -1340,7 +1344,7 @@ function update(dt) {
   for (const k of eshots) {
     k.x += k.dx * dt; k.y += k.dy * dt;
     k.life -= dt;
-    if (solidAt(k.x, k.y)) {
+    if (solidAt(k.x, k.y) || floorHAt(k.x, k.y) > k.z) {
       burst(k.x - k.dx * dt, k.y - k.dy * dt, 3, 0.05);
       k.life = 0;
       continue;
@@ -1485,12 +1489,12 @@ function render() {
     pushSprite(img, e.x, e.y, hF, zC, a);
   }
   for (const k of eshots)
-    pushSprite(kissImg, k.x, k.y, 0.13 + 0.02 * Math.sin(gt * 16), 0.5, 1);
+    pushSprite(kissImg, k.x, k.y, 0.13 + 0.02 * Math.sin(gt * 16), k.z ?? 0.5, 1);
   for (const it of items)
     pushSprite(ITEM_IMG[it.type], it.x, it.y, 0.22, (it.fh || 0) + 0.16 + Math.sin(gt * 2.5 + it.ph) * 0.02, 1);
   for (const s of shots) {
-    if (s.mega) pushSprite(heartMega, s.x, s.y, 0.36 + 0.05 * Math.sin(gt * 14 + s.seed), 0.5, 1);
-    else pushSprite(heartImg, s.x, s.y, 0.2 + 0.03 * Math.sin(gt * 18 + s.seed), 0.5, 1);
+    if (s.mega) pushSprite(heartMega, s.x, s.y, 0.36 + 0.05 * Math.sin(gt * 14 + s.seed), s.z ?? 0.5, 1);
+    else pushSprite(heartImg, s.x, s.y, 0.2 + 0.03 * Math.sin(gt * 18 + s.seed), s.z ?? 0.5, 1);
   }
   for (const p of parts)
     pushSprite(heartSmall, p.x, p.y, p.size, Math.min(1, p.z), Math.max(0, p.life / p.max));

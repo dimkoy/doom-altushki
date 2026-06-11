@@ -34,94 +34,106 @@ const TAU = Math.PI * 2;
 // ===================== уровни =====================
 const LEVELS = [
   {
-    name: 'ПОДВАЛ БАРБЕРШОПА', waves: 3, start: [12, 18.5],
+    name: 'ПОДВАЛ БАРБЕРШОПА', waves: 3, start: [13.5, 23.5],
     map: [
-      "111111111111111111111111",
-      "1......................1",
-      "1..11..........2...11..1",
-      "1..11..2...^^..2...11..1",
-      "1......2...==..2.......1",
-      "1......2...............1",
-      "1..............22222...1",
-      "1...2222.......2.......1",
-      "1..33..........2....3..1",
-      "1..33....~~~~~~.....3..1",
-      "1........~~~~~~........1",
-      "1.2......~~~~~~......2.1",
-      "1.2......~~~~~~......2.1",
-      "1.2......~~~~~~........1",
-      "1..................33..1",
-      "1....2.............33..1",
-      "1....2.....2222........1",
-      "1.....22......2........1",
-      "1.....22......2..==....1",
-      "1.................^....1",
-      "1....................2.1",
-      "1..222.........222.....1",
-      "1......................1",
-      "111111111111111111111111",
+      "1111111111111111111111111111",
+      "1........2........2........1",
+      "1..33....2........2....33..1",
+      "1..33....2...^^...2....33..1",
+      "1............==............1",
+      "1..........................1",
+      "1.2222...2........2...2222.1",
+      "1........2........2........1",
+      "1........2........2........1",
+      "1222..2222222..2222222..2221",
+      "1........2........2........1",
+      "1..33....2........2....33..1",
+      "1..33....2.~~~~~~.2....33..1",
+      "1..........~~~~~~..........1",
+      "1..........~~~~~~..........1",
+      "1........2.~~~~~~.2........1",
+      "1........2.==.....2........1",
+      "1........2........2........1",
+      "122222..22222..22222..222221",
+      "1........2........2........1",
+      "1..33....2........2....33..1",
+      "1..33....2.=....=.2....33..1",
+      "1..........................1",
+      "1..........................1",
+      "1........2........2........1",
+      "1........2........2..==....1",
+      "1..........................1",
+      "1111111111111111111111111111",
     ],
   },
   {
-    name: 'НЕОНОВЫЙ ЗАЛ', waves: 3, start: [12, 21.5],
+    name: 'НЕОНОВЫЙ ЗАЛ', waves: 3, start: [13.5, 25.5],
     map: [
-      "111111111111111111111111",
-      "1......................1",
-      "1.22......2.........22.1",
-      "1.22..33..2..33.....22.1",
-      "1.........2............1",
-      "1...222........222.....1",
-      "1......................1",
-      "1......~~~~~~~~~~......1",
-      "1.3....~~~~~~~~~~....3.1",
-      "1.3....~~~~~~~~~~....3.1",
-      "1......~~~====~~~......1",
-      "1......~~~=^^=~~~......1",
-      "1.3....~~~=^^=~~~....3.1",
-      "1.3....~~~====~~~......1",
-      "1......~~~~~~~~~~......1",
-      "1......~~~~~~~~~~......1",
-      "1......~~~~~~~~~~......1",
-      "1...222........222.....1",
-      "1......................1",
-      "1.22.....2..........22.1",
-      "1.22..33.2...33.....22.1",
-      "1........2.............1",
-      "1......................1",
-      "111111111111111111111111",
+      "1111111111111111111111111111",
+      "1..........................1",
+      "1.22....................22.1",
+      "1..........................1",
+      "1...3333..33333333..3333...1",
+      "1...3..................3...1",
+      "1...3.33....3333....33.3...1",
+      "1...3..................3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~====~~~~...3...1",
+      "1.......~~~~=^^=~~~~.......1",
+      "1.......~~~~=^^=~~~~.......1",
+      "1...3...~~~~====~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3...~~~~~~~~~~~~...3...1",
+      "1...3..................3...1",
+      "1...3.33....3333....33.3...1",
+      "1...3..................3...1",
+      "1...3333..33333333..3333...1",
+      "1..........................1",
+      "1..........................1",
+      "1..........................1",
+      "1111111111111111111111111111",
     ],
   },
   {
-    name: 'ЛОГОВО АЛЬТУШЕК', waves: 4, start: [12, 18.5],
+    name: 'ЛОГОВО АЛЬТУШЕК', waves: 4, start: [13.5, 24.5],
     map: [
-      "111111111111111111111111",
-      "1......................1",
-      "1.3333....2.2.....3333.1",
-      "1.........2.2..........1",
-      "1...22....2.2....22....1",
-      "1......................1",
-      "1.2....................1",
-      "1.2....~~~~~~~~~~....2.1",
-      "1.2....~~~~~~~~~~....2.1",
-      "1......~~=~~~~=~~....2.1",
-      "1......~~~~~~~~~~......1",
-      "1...22.~~~~^^~~~~.22...1",
-      "1...22.~~~~^^~~~~.22...1",
-      "1......~~~~~~~~~~......1",
-      "1.2....~~=~~~~=~~....2.1",
-      "1.2....~~~~~~~~~~....2.1",
-      "1.2..................2.1",
-      "1......................1",
-      "1...22....2......22....1",
-      "1.........2............1",
-      "1.3333....2.2.....3333.1",
-      "1......................1",
-      "1......................1",
-      "111111111111111111111111",
+      "1111111111111111111111111111",
+      "1..........................1",
+      "1.3333..2222..2222....3333.1",
+      "1..........................1",
+      "12222..22222222222222..22221",
+      "1..........................1",
+      "1222222222222..2222222222221",
+      "1..........................1",
+      "1..33....~~~~~~~~~~....33..1",
+      "1........~~==^^==~~........1",
+      "1........~~==^^==~~........1",
+      "1..33....~~~~~~~~~~....33..1",
+      "1..........................1",
+      "12222..22222222222222..22221",
+      "1..........................1",
+      "1.22..3333....3333....22...1",
+      "1..........................1",
+      "1222222222222..2222222222221",
+      "1..........................1",
+      "1.3333....22..22....3333...1",
+      "1..........................1",
+      "12222222..22222222..22222221",
+      "1..........................1",
+      "1..33......2..2......33....1",
+      "1..........................1",
+      "1.=......................=.1",
+      "1..........................1",
+      "1111111111111111111111111111",
     ],
   },
 ];
-const MW = 24, MH = LEVELS.map(l => l.map.length)[0];
+const MW = LEVELS[0].map[0].length, MH = LEVELS[0].map.length;
 for (const L of LEVELS)
   for (const r of L.map)
     if (r.length !== MW) console.warn('кривая строка карты:', L.name, r);
@@ -377,6 +389,237 @@ function makeGirl(vi, frame) { // frame: 0,1 — ходьба, 2 — атака
   return c;
 }
 const girlSprites = GIRLS.map((_, i) => [0, 1, 2].map(f => makeGirl(i, f)));
+
+// толстушка-обнимашка: короткий розовый боб, пышные формы, в атаке — распахнутые объятия
+function makeFatGirl(frame) {
+  const c = document.createElement('canvas');
+  c.width = 128; c.height = 192;
+  const g = c.getContext('2d');
+  const cx = 64, skin = '#f4ddcf', cloth = '#16141c', tight = '#262130', hair = '#ff7bbf';
+  const atk = frame === 2, sw = frame === 0 ? 1 : frame === 1 ? -1 : 0;
+  // боб сзади
+  g.fillStyle = hair;
+  rr(g, cx - 28, 14, 56, 52, 22); g.fill();
+  // толстенькие ножки в сетке
+  g.fillStyle = tight;
+  g.fillRect(cx - 22, 128, 19, 38);
+  g.fillRect(cx + 3, 128, 19, 38);
+  g.strokeStyle = 'rgba(255,255,255,0.09)'; g.lineWidth = 1;
+  for (let yy = 132; yy < 162; yy += 7) {
+    g.beginPath();
+    g.moveTo(cx - 22, yy); g.lineTo(cx - 3, yy + 5);
+    g.moveTo(cx + 22, yy); g.lineTo(cx + 3, yy + 5);
+    g.stroke();
+  }
+  // ботинки на платформе
+  g.fillStyle = '#0a090f';
+  rr(g, cx - 26, 156, 23, 30, 3); g.fill();
+  rr(g, cx + 3, 156, 23, 30, 3); g.fill();
+  g.fillStyle = '#33303f';
+  g.fillRect(cx - 26, 180, 23, 7); g.fillRect(cx + 3, 180, 23, 7);
+  // руки: при ходьбе вдоль тела, при атаке — распахнуты для объятий
+  if (!atk) {
+    g.fillStyle = cloth;
+    rr(g, cx - 46, 74 + sw * 4, 13, 38, 6); g.fill();
+    rr(g, cx + 33, 74 - sw * 4, 13, 38, 6); g.fill();
+    g.fillStyle = skin;
+    g.beginPath(); g.arc(cx - 39, 116 + sw * 4, 7, 0, TAU); g.fill();
+    g.beginPath(); g.arc(cx + 39, 116 - sw * 4, 7, 0, TAU); g.fill();
+  } else {
+    g.fillStyle = cloth;
+    rr(g, cx - 62, 64, 30, 14, 7); g.fill();
+    rr(g, cx + 32, 64, 30, 14, 7); g.fill();
+    g.fillStyle = skin;
+    g.beginPath(); g.arc(cx - 59, 71, 9, 0, TAU); g.fill();
+    g.beginPath(); g.arc(cx + 59, 71, 9, 0, TAU); g.fill();
+  }
+  // пышное тело: кроп-топ с сердцем и животик с пирсингом
+  g.fillStyle = cloth;
+  g.beginPath(); g.ellipse(cx, 92, 37, 30, 0, 0, TAU); g.fill();
+  heartPath(g, cx, 90, 20); g.fillStyle = hair; g.fill();
+  g.fillStyle = skin;
+  g.beginPath(); g.ellipse(cx, 124, 30, 17, 0, 0, TAU); g.fill();
+  g.fillStyle = 'rgba(0,0,0,0.12)';
+  g.beginPath(); g.arc(cx, 128, 3, 0, TAU); g.fill();
+  g.fillStyle = '#e8ecf5';
+  g.beginPath(); g.arc(cx, 122, 1.7, 0, TAU); g.fill();
+  // шея и чокер с сердечком
+  g.fillStyle = skin; g.fillRect(cx - 7, 52, 14, 14);
+  g.fillStyle = '#0a090f'; g.fillRect(cx - 11, 57, 22, 7);
+  heartPath(g, cx, 61, 6); g.fillStyle = hair; g.fill();
+  // круглая голова и щёчки
+  g.fillStyle = skin;
+  g.beginPath(); g.ellipse(cx, 38, 23, 21, 0, 0, TAU); g.fill();
+  g.fillStyle = 'rgba(255,110,160,0.4)';
+  g.beginPath(); g.arc(cx - 14, 46, 5.5, 0, TAU); g.fill();
+  g.beginPath(); g.arc(cx + 14, 46, 5.5, 0, TAU); g.fill();
+  eyeG(g, cx - 10, 40, atk, -1);
+  eyeG(g, cx + 10, 40, atk, 1);
+  // рот: в атаке — счастливое «О» обнимашек
+  if (atk) {
+    g.fillStyle = '#6e1d3a';
+    g.beginPath(); g.ellipse(cx, 53, 5, 6, 0, 0, TAU); g.fill();
+  } else {
+    g.fillStyle = '#6e1d3a';
+    g.beginPath();
+    g.moveTo(cx - 6, 51); g.quadraticCurveTo(cx, 56, cx + 6, 51);
+    g.quadraticCurveTo(cx, 59, cx - 6, 51);
+    g.fill();
+  }
+  // пирсинг в носу
+  g.fillStyle = '#e8ecf5';
+  g.beginPath(); g.arc(cx + 3, 46, 1.4, 0, TAU); g.fill();
+  // розовый боб спереди: чёлка и пряди-шторки до щёк
+  g.fillStyle = hair;
+  g.beginPath();
+  g.moveTo(cx - 26, 52);
+  g.quadraticCurveTo(cx - 28, 12, cx, 12);
+  g.quadraticCurveTo(cx + 28, 12, cx + 26, 52);
+  g.lineTo(cx + 17, 52);
+  g.quadraticCurveTo(cx + 19, 29, cx + 9, 26);
+  g.quadraticCurveTo(cx, 24, cx - 9, 26);
+  g.quadraticCurveTo(cx - 19, 29, cx - 17, 52);
+  g.closePath(); g.fill();
+  // светлая прядка
+  g.strokeStyle = '#ffd1e8'; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(cx - 7, 15); g.quadraticCurveTo(cx - 14, 22, cx - 15, 32); g.stroke();
+  return c;
+}
+const fatSprites = [0, 1, 2].map(makeFatGirl);
+
+// готка-крикунья: бледная, длинные чёрные волосы, корсет с декольте; в атаке — кричит
+function makeGothGirl(frame) {
+  const c = document.createElement('canvas');
+  c.width = 96; c.height = 192;
+  const g = c.getContext('2d');
+  const cx = 48, skin = '#ece2e6', hair = '#171221', corset = '#0d0b12';
+  const atk = frame === 2, sw = frame === 0 ? 1 : frame === 1 ? -1 : 0;
+  // длинные волосы сзади — до пояса
+  g.fillStyle = hair;
+  rr(g, cx - 27, 14, 54, 102, 20); g.fill();
+  // длинная юбка
+  g.fillStyle = '#1a1622';
+  g.beginPath();
+  g.moveTo(cx - 17, 102); g.lineTo(cx + 17, 102);
+  g.lineTo(cx + 25, 176); g.lineTo(cx - 25, 176);
+  g.closePath(); g.fill();
+  // разрез: нога в сетке
+  g.fillStyle = '#262130';
+  g.beginPath();
+  g.moveTo(cx + 4, 114); g.lineTo(cx + 14, 114);
+  g.lineTo(cx + 19, 176); g.lineTo(cx + 6, 176);
+  g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,0.09)'; g.lineWidth = 1;
+  for (let yy = 120; yy < 170; yy += 8) {
+    g.beginPath(); g.moveTo(cx + 5, yy); g.lineTo(cx + 18, yy + 5); g.stroke();
+  }
+  // ботинки
+  g.fillStyle = '#0a090f';
+  rr(g, cx - 19, 170, 16, 18, 3); g.fill();
+  rr(g, cx + 4, 170, 16, 18, 3); g.fill();
+  // руки: при крике подняты к лицу
+  if (atk) {
+    g.fillStyle = corset;
+    rr(g, cx - 31, 56, 11, 34, 5); g.fill();
+    rr(g, cx + 20, 56, 11, 34, 5); g.fill();
+    g.fillStyle = skin;
+    g.beginPath(); g.arc(cx - 24, 56, 6.5, 0, TAU); g.fill();
+    g.beginPath(); g.arc(cx + 24, 56, 6.5, 0, TAU); g.fill();
+  } else {
+    g.fillStyle = corset;
+    rr(g, cx - 28, 72 + sw * 4, 11, 36, 5); g.fill();
+    rr(g, cx + 17, 72 - sw * 4, 11, 36, 5); g.fill();
+    g.fillStyle = skin;
+    g.beginPath(); g.arc(cx - 22, 112 + sw * 4, 6, 0, TAU); g.fill();
+    g.beginPath(); g.arc(cx + 22, 112 - sw * 4, 6, 0, TAU); g.fill();
+  }
+  // корсет
+  g.fillStyle = corset;
+  g.beginPath();
+  g.moveTo(cx - 18, 70); g.lineTo(cx + 18, 70);
+  g.lineTo(cx + 14, 106); g.lineTo(cx - 14, 106);
+  g.closePath(); g.fill();
+  // большая грудь в декольте
+  g.fillStyle = skin;
+  g.beginPath(); g.arc(cx - 8.5, 72, 10, 0, TAU); g.fill();
+  g.beginPath(); g.arc(cx + 8.5, 72, 10, 0, TAU); g.fill();
+  g.strokeStyle = 'rgba(40,20,40,0.45)'; g.lineWidth = 1.6;
+  g.beginPath(); g.moveTo(cx, 66); g.lineTo(cx, 80); g.stroke();
+  // край корсета поверх груди
+  g.strokeStyle = '#2a2136'; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(cx - 18, 80); g.quadraticCurveTo(cx, 88, cx + 18, 80); g.stroke();
+  // фиолетовая шнуровка
+  g.strokeStyle = '#8a4fd6'; g.lineWidth = 1.5;
+  for (let yy = 86; yy < 102; yy += 5) {
+    g.beginPath();
+    g.moveTo(cx - 7, yy); g.lineTo(cx + 7, yy + 3);
+    g.moveTo(cx + 7, yy); g.lineTo(cx - 7, yy + 3);
+    g.stroke();
+  }
+  // шея, чокер и серебряный крестик
+  g.fillStyle = skin; g.fillRect(cx - 6, 52, 12, 12);
+  g.fillStyle = '#0a090f'; g.fillRect(cx - 9, 56, 18, 6);
+  g.strokeStyle = '#cfd4e2'; g.lineWidth = 2;
+  g.beginPath();
+  g.moveTo(cx, 62); g.lineTo(cx, 72);
+  g.moveTo(cx - 4, 66); g.lineTo(cx + 4, 66);
+  g.stroke();
+  // бледное лицо
+  g.fillStyle = skin;
+  g.beginPath(); g.arc(cx, 40, 20, 0, TAU); g.fill();
+  if (atk) {
+    // зажмуренные глаза и распахнутый рот — КРИК
+    g.strokeStyle = '#241a26'; g.lineWidth = 2.5;
+    g.beginPath();
+    g.moveTo(cx - 14, 40); g.lineTo(cx - 5, 43);
+    g.moveTo(cx + 5, 43); g.lineTo(cx + 14, 40);
+    g.stroke();
+    g.fillStyle = '#3d0f22';
+    g.beginPath(); g.ellipse(cx, 54, 6.5, 8.5, 0, 0, TAU); g.fill();
+    g.strokeStyle = '#2a0d1c'; g.lineWidth = 2;
+    g.beginPath(); g.ellipse(cx, 54, 7.5, 9.5, 0, 0, TAU); g.stroke();
+    // расходящиеся дуги крика
+    g.strokeStyle = 'rgba(216,140,255,0.8)'; g.lineWidth = 2;
+    for (let i = 0; i < 3; i++) {
+      g.beginPath(); g.arc(cx, 54, 13 + i * 7, -0.55, 0.55); g.stroke();
+      g.beginPath(); g.arc(cx, 54, 13 + i * 7, Math.PI - 0.55, Math.PI + 0.55); g.stroke();
+    }
+  } else {
+    eyeG(g, cx - 9, 42, false, -1);
+    eyeG(g, cx + 9, 42, false, 1);
+    g.strokeStyle = '#221c28'; g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(cx - 14, 34); g.lineTo(cx - 5, 36);
+    g.moveTo(cx + 5, 36); g.lineTo(cx + 14, 34);
+    g.stroke();
+    // чёрная помада
+    g.fillStyle = '#1c0a16';
+    g.beginPath();
+    g.moveTo(cx - 5, 52); g.quadraticCurveTo(cx, 55, cx + 6, 51);
+    g.quadraticCurveTo(cx, 57, cx - 5, 52);
+    g.fill();
+  }
+  // пирсинг
+  g.fillStyle = '#e8ecf5';
+  g.beginPath(); g.arc(cx + 3, 47, 1.3, 0, TAU); g.fill();
+  g.beginPath(); g.arc(cx - 12, 33, 1.3, 0, TAU); g.fill();
+  // прямая чёлка и передние пряди до груди
+  g.fillStyle = hair;
+  g.beginPath();
+  g.moveTo(cx - 21, 36);
+  g.quadraticCurveTo(cx - 22, 14, cx, 14);
+  g.quadraticCurveTo(cx + 22, 14, cx + 21, 36);
+  g.lineTo(cx + 15, 30); g.lineTo(cx + 8, 33) ; g.lineTo(cx, 30);
+  g.lineTo(cx - 8, 33); g.lineTo(cx - 15, 30);
+  g.closePath(); g.fill();
+  rr(g, cx - 28, 28, 10, 62, 5); g.fill();
+  rr(g, cx + 18, 28, 10, 62, 5); g.fill();
+  // фиолетовая прядь
+  g.strokeStyle = '#8a4fd6'; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(cx + 21, 26); g.quadraticCurveTo(cx + 25, 52, cx + 23, 84); g.stroke();
+  return c;
+}
+const gothSprites = [0, 1, 2].map(makeGothGirl);
 
 // ===================== спрайты боссов (3 уникальные модели) =====================
 // БОСС 2 — НАСТЯ ШИПАСТАЯ: токсичный ирокез, шипастый харнесс
@@ -692,6 +935,24 @@ const kissImg = (() => {
   return c;
 })();
 
+// звуковая волна крика готки: расходящиеся неоновые кольца
+const waveImg = (() => {
+  const c = document.createElement('canvas');
+  c.width = c.height = 96;
+  const g = c.getContext('2d');
+  g.translate(48, 48);
+  g.shadowColor = '#c86bff'; g.shadowBlur = 7;
+  for (let i = 0; i < 4; i++) {
+    g.strokeStyle = `rgba(${216 - i * 14},${120 + i * 24},255,${0.9 - i * 0.18})`;
+    g.lineWidth = 6 - i;
+    g.beginPath(); g.arc(0, 0, 9 + i * 11, 0, TAU); g.stroke();
+  }
+  g.shadowBlur = 0;
+  g.fillStyle = '#f2d8ff';
+  g.beginPath(); g.arc(0, 0, 4.5, 0, TAU); g.fill();
+  return c;
+})();
+
 function makeHeart(size, fill) {
   const c = document.createElement('canvas');
   c.width = c.height = size;
@@ -915,6 +1176,33 @@ function sfxMoan(boss) {
   } catch (e) { /* ок */ }
 }
 
+// крик готки: воющий стон-сирена — пара расстроенных осцилляторов с вибрато, нисходящий
+function sfxScream() {
+  if (!AC) return;
+  try {
+    const t = AC.currentTime;
+    const f0 = 580 + Math.random() * 120;
+    for (const det of [-7, 7]) {
+      const o = AC.createOscillator(), g = AC.createGain();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(f0, t);
+      o.frequency.exponentialRampToValueAtTime(f0 * 0.42, t + 0.55);
+      o.detune.value = det;
+      const lfo = AC.createOscillator(), lg = AC.createGain();
+      lfo.frequency.value = 7; lg.gain.value = f0 * 0.06;
+      lfo.connect(lg); lg.connect(o.frequency);
+      const fl = AC.createBiquadFilter();
+      fl.type = 'lowpass'; fl.frequency.value = 2200; fl.Q.value = 2;
+      g.gain.setValueAtTime(0.001, t);
+      g.gain.exponentialRampToValueAtTime(0.11, t + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+      o.connect(fl); fl.connect(g); g.connect(AC.destination);
+      o.start(t); lfo.start(t);
+      o.stop(t + 0.6); lfo.stop(t + 0.6);
+    }
+  } catch (e) { /* ок */ }
+}
+
 // ===================== фоновая музыка: тихий готик-рок =====================
 const mNote = m => 440 * Math.pow(2, (m - 69) / 12);
 const M_STEP = 60 / 112 / 4;                     // 16-е ноты при 112 BPM
@@ -1007,11 +1295,11 @@ function startMusic() {
 let state = 'menu';   // menu | play | pause | over | win
 let gt = 0;
 const player = {
-  x: 12, y: 18.5, ang: -Math.PI / 2,
+  x: 13.5, y: 23.5, ang: -Math.PI / 2,
   hp: 100, armor: 0,
   z: 0, vz: 0, inWater: false,
   weapon: 0, rockets: 0, cells: 0,
-  cool: 0, recoil: 0, bob: 0, hurt: 0, shake: 0,
+  cool: 0, recoil: 0, bob: 0, hurt: 0, shake: 0, stun: 0,
 };
 let laserBeam = null;
 let enemies = [], shots = [], parts = [], items = [], eshots = [], aoes = [];
@@ -1070,7 +1358,7 @@ function loadLevel(n) {
   if (n >= 2) drops.push('laser', 'laser');   // лазерган со 2-го уровня
   drops.forEach(t => spawnItem(t, 4));
   // гарантированная награда на высокой платформе — стоит запрыгнуть
-  const reward = { 1: ['rocket', 11.5, 3.5], 2: ['laser', 11.5, 11.5], 3: ['armor', 11.5, 11.5] }[n];
+  const reward = { 1: ['rocket', 13.5, 3.5], 2: ['laser', 13.5, 13.5], 3: ['armor', 13.5, 9.5] }[n];
   if (reward) items.push({ x: reward[1], y: reward[2], type: reward[0], ph: 0, fh: floorHAt(reward[1], reward[2]) });
   banner = `УРОВЕНЬ ${n}`;
   bannerSub = L.name;
@@ -1081,7 +1369,7 @@ function loadLevel(n) {
 function beginWave(showBanner) {
   wave++;
   const g = globalWave();
-  spawnLeft = Math.min(14, 2 + g * 2);
+  spawnLeft = Math.min(16, 3 + g * 2);
   spawnT = 0.4;
   if (showBanner) {
     banner = `ВОЛНА ${wave}`;
@@ -1100,7 +1388,7 @@ function startGame() {
   player.weapon = 0; player.rockets = 0; player.cells = 0;
   player.z = 0; player.vz = 0; player.inWater = false;
   player.cool = 0; player.recoil = 0;
-  player.bob = 0; player.hurt = 0; player.shake = 0;
+  player.bob = 0; player.hurt = 0; player.shake = 0; player.stun = 0;
   laserBeam = null;
   score = 0;
   pickupMsg = ''; pickupT = 0;
@@ -1110,17 +1398,23 @@ function startGame() {
 
 function spawnOne() {
   const g = globalWave();
+  // со 2-й волны среди обычных попадаются толстушки-обнимашки и кричащие готки
+  const roll = Math.random();
+  const kind = g >= 2 ? (roll < 0.16 ? 'hug' : roll < 0.34 ? 'scream' : null) : null;
   for (let t = 0; t < 80; t++) {
     const p = FREE[(Math.random() * FREE.length) | 0];
     if (Math.hypot(p[0] - player.x, p[1] - player.y) > 7) {
+      const hp = 3 + (g > 5 ? 1 : 0) + (g > 8 ? 1 : 0);
+      const spd = 1.3 + g * 0.12 + Math.random() * 0.25;
       enemies.push({
-        x: p[0], y: p[1], z: 0,
-        hp: 3 + (g > 5 ? 1 : 0) + (g > 8 ? 1 : 0),
-        spd: 1.1 + g * 0.12 + Math.random() * 0.25,
+        x: p[0], y: p[1], z: 0, kind,
+        hp: kind === 'hug' ? hp + 2 : kind === 'scream' ? Math.max(2, hp - 1) : hp,
+        spd: kind === 'hug' ? spd * 0.7 : kind === 'scream' ? spd * 0.9 : spd,
         v: (Math.random() * GIRLS.length) | 0,
         phase: Math.random() * 6,
         dead: false, deadT: 0, hit: 0,
         atkCd: Math.random() * 0.5, atkAnim: 0,
+        screamCd: 1 + Math.random(), wanderT: 0, wa: 0,
         aggro: false,
       });
       return;
@@ -1220,7 +1514,7 @@ function explode(x, y) {
     const d = Math.hypot(e.x - x, e.y - y);
     const dm = d < 1.4 ? 5 : d < 2.6 ? 2 : 0;
     if (dm > 0) {
-      e.hp -= dm; e.hit = 0.25;
+      e.hp -= dm; e.hit = 0.25; e.aggro = true;
       if (e.hp <= 0) {
         e.dead = true; e.deadT = 0;
         score += e.boss ? 250 + level * 250 : 100;
@@ -1251,8 +1545,8 @@ function fireLaser() {
     const t = (e.x - player.x) * dx + (e.y - player.y) * dy;
     if (t < 0 || t > dist) continue;
     const px = player.x + dx * t, py = player.y + dy * t;
-    if (Math.hypot(e.x - px, e.y - py) < (e.boss ? 0.55 : 0.42)) {
-      e.hp -= 0.63; e.hit = 0.12;
+    if (Math.hypot(e.x - px, e.y - py) < (e.boss ? 0.55 : e.kind === 'hug' ? 0.52 : 0.42)) {
+      e.hp -= 0.63; e.hit = 0.12; e.aggro = true;
       if (e.hp <= 0) {
         e.dead = true; e.deadT = 0;
         score += e.boss ? 250 + level * 250 : 100;
@@ -1267,6 +1561,9 @@ function fireLaser() {
 
 function shoot() {
   const dx = Math.cos(player.ang), dy = Math.sin(player.ang);
+  // выстрел — это шум: альтушки в округе просыпаются, даже за стеной (как в Doom)
+  for (const e of enemies)
+    if (!e.dead && Math.hypot(e.x - player.x, e.y - player.y) < 10) e.aggro = true;
   if (player.weapon === 2) {
     if (player.cells <= 0) { player.weapon = 0; return; }
     fireLaser();
@@ -1399,12 +1696,63 @@ function updateEnemy(e, dt) {
     }
     return;
   }
-  if (!e.aggro && d < 14 && los(e.x, e.y, player.x, player.y)) e.aggro = true;
-  if (!e.aggro) return;
+  if (!e.aggro && d < 16 && los(e.x, e.y, player.x, player.y)) e.aggro = true;
+  if (!e.aggro) {
+    // пока не заметила игрока — лениво бродит по лабиринту
+    e.wanderT -= dt;
+    if (e.wanderT <= 0) { e.wanderT = 2 + Math.random() * 2; e.wa = Math.random() * TAU; }
+    const s = e.spd * 0.35 * dt * slow;
+    moveWithCollide(e, Math.cos(e.wa) * s, Math.sin(e.wa) * s, 0.26);
+    e.phase += dt * 2.5;
+    return;
+  }
+  const rad = e.kind === 'hug' ? 0.3 : 0.26;
+  // толстушка добралась: замах объятий, потом стан + взрыв сердечками (сама растворяется)
+  if (e.fuse !== undefined) {
+    e.fuse -= dt;
+    if (Math.random() < dt * 30) burst(e.x, e.y, 1, 0.07);
+    if (e.fuse <= 0) {
+      ringBurst(e.x, e.y, 22, 0.45);
+      sfxAoe();
+      if (d < 1.4 && damagePlayer(18 + Math.floor(Math.random() * 7))) {
+        player.stun = 1.1;
+        player.shake = Math.max(player.shake, 0.7);
+      }
+      e.dead = true; e.deadT = 0;   // без очков — игрок её не очаровывал
+      sfxMoan(false);
+    }
+    return;
+  }
+  // готка держит дистанцию и кричит — звуковая волна летит в игрока
+  if (e.kind === 'scream' && d > 1.5) {
+    e.screamCd -= dt;
+    const see = d < 11 && los(e.x, e.y, player.x, player.y);
+    if (see && e.screamCd <= 0) {
+      e.screamCd = 2.4;
+      e.atkAnim = 0.5;
+      const a = Math.atan2(ddy, ddx);
+      eshots.push({
+        wave: true,
+        x: e.x + Math.cos(a) * 0.35, y: e.y + Math.sin(a) * 0.35, z: (e.z || 0) + 0.5,
+        dx: Math.cos(a) * 4.2, dy: Math.sin(a) * 4.2, life: 4,
+      });
+      sfxScream();
+    }
+    if (!see || d > 8) {            // сближается, пока не выйдет на дистанцию крика
+      const s = e.spd * dt * slow;
+      moveWithCollide(e, ddx / d * s, ddy / d * s, 0.26);
+      e.phase += dt * 7;
+    } else e.phase += dt * 2;
+    return;
+  }
   if (d > 0.85) {
     const s = e.spd * dt * slow;
-    moveWithCollide(e, ddx / d * s, ddy / d * s, 0.26);
+    moveWithCollide(e, ddx / d * s, ddy / d * s, rad);
     e.phase += dt * 7;
+  } else if (e.kind === 'hug') {
+    e.fuse = 0.45;
+    e.atkAnim = 0.6;
+    sfxAoeCharge();
   } else if (e.atkCd <= 0) {
     e.atkCd = 1.05;
     e.atkAnim = 0.4;
@@ -1427,7 +1775,7 @@ function update(dt) {
   player.inWater = isWaterAt(player.x, player.y);
   if (player.inWater && !wasWater) sfxSplash();
   const ml = Math.hypot(mx, my);
-  if (ml > 0) {
+  if (ml > 0 && player.stun <= 0) {   // в обнимашках не пошевелиться
     const sp = (player.inWater ? 1.85 : 3.7) * dt;
     const ux = mx / ml * sp, uy = my / ml * sp;
     // шагнуть можно, если нет стены и уступ не выше STEPUP (иначе нужно перепрыгнуть)
@@ -1441,7 +1789,7 @@ function update(dt) {
   // прыжок и гравитация к высоте пола/платформы под игроком
   const groundZ = floorHAt(player.x, player.y);
   const grounded = player.z <= groundZ + 0.02 && player.vz <= 0.01;
-  if (keys.Space && grounded) { player.vz = JUMP_V; sfxJump(); }
+  if (keys.Space && grounded && player.stun <= 0) { player.vz = JUMP_V; sfxJump(); }
   player.vz -= GRAV * dt;
   player.z += player.vz * dt;
   if (player.z <= groundZ) { player.z = groundZ; player.vz = 0; }
@@ -1449,7 +1797,7 @@ function update(dt) {
   // стрельба
   player.cool -= dt;
   player.recoil = Math.max(0, player.recoil - dt * 5);
-  if (mouseDown && player.cool <= 0) shoot();
+  if (mouseDown && player.cool <= 0 && player.stun <= 0) shoot();
 
   // подбор предметов (нужно быть на той же высоте — за наградой на платформе прыгай)
   items = items.filter(it => {
@@ -1516,10 +1864,10 @@ function update(dt) {
     const rad = s.mega ? 0.55 : 0.45;
     for (const e of enemies) {
       if (e.dead) continue;
-      if (Math.hypot(e.x - s.x, e.y - s.y) < rad + (e.boss ? 0.15 : 0)) {
+      if (Math.hypot(e.x - s.x, e.y - s.y) < rad + (e.boss ? 0.15 : e.kind === 'hug' ? 0.1 : 0)) {
         s.life = 0;
         if (s.mega) { explode(s.x, s.y); break; }
-        e.hp--; e.hit = 0.18;
+        e.hp--; e.hit = 0.18; e.aggro = true;
         if (e.hp <= 0) {
           e.dead = true; e.deadT = 0;
           score += e.boss ? 250 + level * 250 : 100;
@@ -1546,9 +1894,9 @@ function update(dt) {
       k.life = 0;
       continue;
     }
-    if (player.z <= 0.25 && Math.hypot(player.x - k.x, player.y - k.y) < 0.4) {
+    if (player.z <= 0.25 && Math.hypot(player.x - k.x, player.y - k.y) < (k.wave ? 0.5 : 0.4)) {
       k.life = 0;
-      damagePlayer(9 + Math.floor(Math.random() * 5));
+      damagePlayer(k.wave ? 8 + Math.floor(Math.random() * 4) : 9 + Math.floor(Math.random() * 5));
     }
   }
   eshots = eshots.filter(k => k.life > 0);
@@ -1584,6 +1932,7 @@ function update(dt) {
   if (laserBeam) { laserBeam.t -= dt; if (laserBeam.t <= 0) laserBeam = null; }
   player.hurt = Math.max(0, player.hurt - dt);
   player.shake = Math.max(0, player.shake - dt);
+  player.stun = Math.max(0, player.stun - dt);
   bannerT -= dt;
   pickupT = Math.max(0, pickupT - dt);
 
@@ -1704,11 +2053,15 @@ function render() {
       if (e.hit > 0 && Math.floor(gt * 40) % 2 === 0) a = 0.45;
     }
     const fr = (e.atkAnim > 0 || e.dead) ? 2 : (Math.floor(e.phase) % 2);
-    const img = e.boss ? bossSprites[e.bv][fr] : girlSprites[e.v][fr];
+    const img = e.boss ? bossSprites[e.bv][fr]
+      : e.kind === 'hug' ? fatSprites[fr]
+      : e.kind === 'scream' ? gothSprites[fr]
+      : girlSprites[e.v][fr];
     pushSprite(img, e.x, e.y, hF, zC, a);
   }
   for (const k of eshots)
-    pushSprite(kissImg, k.x, k.y, 0.13 + 0.02 * Math.sin(gt * 16), k.z ?? 0.5, 1);
+    pushSprite(k.wave ? waveImg : kissImg, k.x, k.y,
+      k.wave ? 0.3 + 0.05 * Math.sin(gt * 22) : 0.13 + 0.02 * Math.sin(gt * 16), k.z ?? 0.5, 1);
   for (const it of items)
     pushSprite(ITEM_IMG[it.type], it.x, it.y, 0.22, (it.fh || 0) + 0.16 + Math.sin(gt * 2.5 + it.ph) * 0.02, 1);
   for (const s of shots) {
@@ -1751,6 +2104,23 @@ function render() {
   if (player.hurt > 0) {
     ctx.fillStyle = `rgba(255,40,90,${(player.hurt * 0.8).toFixed(2)})`;
     ctx.fillRect(0, 0, W, VIEW_H);
+  }
+
+  // стан от обнимашек: розовая пелена, хоровод сердечек
+  if (state === 'play' && player.stun > 0) {
+    ctx.fillStyle = 'rgba(255,90,160,0.20)';
+    ctx.fillRect(0, 0, W, VIEW_H);
+    ctx.globalAlpha = Math.min(1, player.stun * 2.5);
+    ctx.fillStyle = '#ff4fa8';
+    for (let i = 0; i < 6; i++) {
+      const a = gt * 2.4 + i / 6 * TAU;
+      heartPath(ctx, W / 2 + Math.cos(a) * 150, VIEW_H / 2 - 30 + Math.sin(a) * 70, 15);
+      ctx.fill();
+    }
+    ctx.font = 'bold 32px monospace'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffd1e8';
+    ctx.fillText('ОБНИМАШКИ!', W / 2, VIEW_H / 2 - 110);
+    ctx.globalAlpha = 1;
   }
 
   // оружие и прицел
